@@ -1,32 +1,30 @@
-import bcrypt from 'bcrypt';
 import userSchema from '../../models/userSchema.js';
 
 export const register = (req, res) => {
+
+    const { email, password} = req.body;
     
-    const { name, email, password, isAdmin} = req.body;
-    
-    const saltRounds = 10;
-    
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-        
-        if(err){
-            console.log(err);
-            return;
+    userSchema.findOne({email: email}, (err, userExist) => {
+
+        if(err) throw err;
+
+        if(userExist){
+            res.status(400).json({ message: 'Cet email existe déjà.' });
+        }else{
+            const user = new userSchema({
+                email,
+                password
+            })
+            const token = user.createJWT();
+            user.save()
+            .then(() => {
+                res.status(201).json({user, token})
+            })
+            .catch((err) => console.log(err))
+
+            
         }
-        
-        const newUser = new userSchema({
-            name,
-            email,
-            password: hash,
-            isAdmin: isAdmin ? true : false
-        });
-        
-        newUser.save((err) => {
-            if(err){
-                console.log(err);
-                return;
-            }
-        })
-    });
+    })
+    console.log("User created: ", userSchema);
         
 };

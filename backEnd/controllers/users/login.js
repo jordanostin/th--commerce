@@ -1,4 +1,5 @@
 import userSchema from '../../models/userSchema.js';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 export const login = (req, res) => {
@@ -26,11 +27,13 @@ export const login = (req, res) => {
             if (!match) {
                 return res.send('identifiant invalide 2');
             }else{
-                req.session.user = {
+                const token = jwt.sign({ email: user.email }, 'secret');
+                user = {
                     email: email,
-                    isAdmin: email === 'milo@gmail.com'
+                    isAdmin: email === 'milo@gmail.com',
+                    token: token
                 }
-                console.log(req.session.user)
+                res.status(201).json({user, token})
             } 
             
         });

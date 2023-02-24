@@ -1,20 +1,18 @@
 import mongoose from 'mongoose';
 import express from "express";
-import bodyParser from 'body-parser';
 import router from './router/route.js';
+import cors from 'cors';
 
 
 const PORT = 9300;
 const app = express();
 
-app.set('views', './views');
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://jordanostin:<Miloxy12*>@clusterapp.7ev62mm.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://jordanostin:123@clusterapp.7ev62mm.mongodb.net/?retryWrites=true&w=majority');
 
 
 mongoose.connection.on("error", () => {
