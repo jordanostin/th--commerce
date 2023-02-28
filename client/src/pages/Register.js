@@ -1,23 +1,40 @@
-import axios from 'axios'
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import {useNavigate} from "react-router-dom";
+import { addUser } from "../store/slices/user/userSlice";
 
 export const Register = () =>{
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
 
-        const formData = new FormData(e.target); 
+        const newUser = new FormData(e.target); 
 
-        axios.post('http://localhost:9300/register', {
-            email: formData.get('email'), 
-            password: formData.get('password') 
+        axios.post('http://localhost:9001/register', {
+            email: newUser.get('email'), 
+            password: newUser.get('password') 
         })
-        .then((response) => {
-            console.log(response.data);
+        .then((res) => {
+            console.log(res.data);
+
+            const email = res.data.newUser.email
+            const password = res.data.newUser.password
+            const isAdmin = res.data.newUser.isAdmin
+            const jwt = res.data.jwt
+            
+            localStorage.setItem('jwt', res.data.token);
+
+            dispatch(addUser({email,password,isAdmin,jwt}))
         })
         .catch((error) => {
             console.error(error); 
         });
+
+        navigate('/')
         
     }
 

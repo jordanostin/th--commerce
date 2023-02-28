@@ -4,7 +4,7 @@ import router from './router/route.js';
 import cors from 'cors';
 
 
-const PORT = 9300;
+const PORT = 9001;
 const app = express();
 
 app.use(express.json());

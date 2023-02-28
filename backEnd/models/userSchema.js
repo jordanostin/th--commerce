@@ -30,4 +30,6 @@ userSchema.methods.createJWT = function () {
     }, 'key_secret', {expiresIn: '24h'})
 }
 
+userSchema.
+
 export default mongoose.model('User', userSchema);

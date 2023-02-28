@@ -11,14 +11,14 @@ export const register = (req, res) => {
         if(userExist){
             res.status(400).json({ message: 'Cet email existe déjà.' });
         }else{
-            const user = new userSchema({
+            const newUser = new userSchema({
                 email,
                 password
             })
-            const token = user.createJWT();
-            user.save()
+            const token = newUser.createJWT();
+            newUser.save()
             .then(() => {
-                res.status(201).json({user, token})
+                res.status(201).json({newUser, token})
             })
             .catch((err) => console.log(err))
 
