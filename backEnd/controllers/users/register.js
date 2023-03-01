@@ -2,12 +2,12 @@ import userSchema from '../../models/userSchema.js';
 
 export const register = (req, res) => {
 
-    const { email, password} = req.body;
-    
+    const { email, password, isAdmin} = req.body;
     
     const user = new userSchema({
         email,
-        password
+        password,
+        isAdmin: email == 'milo@gmail.com'
     })
     const token = user.createJWT();
     user.save()
@@ -15,7 +15,8 @@ export const register = (req, res) => {
         res.status(201).json({
             user:{
                 email: user.email,
-                id: user._id
+                id: user._id,
+                isAdmin: user.isAdmin
             },
             token
         })

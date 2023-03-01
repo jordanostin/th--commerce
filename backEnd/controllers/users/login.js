@@ -18,7 +18,7 @@ export const login = (req, res) => {
                 if (!match) {
                     return res.send('identifiant invalide 2');
                 }else{
-                    const token = jwt.sign({ email: user.email, _id: user._id }, 'key_secret');
+                    const token = jwt.sign({ email: user.email, isAdmin: user.isAdmin, _id: user._id }, 'key_secret');
                     user = {
                         email: email,
                         isAdmin: email === 'milo@gmail.com',

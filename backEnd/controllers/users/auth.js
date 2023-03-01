@@ -21,6 +21,7 @@ export const verifyToken  = async (req, res) => {
         res.status(200).json({
             user:{
                 email: user.email,
+                _id: user._id,
                 isAdmin: user.isAdmin
             }
         })

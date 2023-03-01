@@ -4,16 +4,16 @@ export const userSlice = createSlice({
     name: 'userSlice',
     initialState: {
         email:'',
-        jwt:'',
-        isLogged: false
+        token:'',
+        isAdmin: false
     },
     reducers: {
         addUser: (state, action) => {
             return{
                 ...state,
                 email: action.payload.email,
-                jwt: action.payload.jwt,
-                isLogged: true
+                token: action.payload.token,
+                isAdmin: action.payload.isAdmin
             }
         }
     },

@@ -18,13 +18,13 @@ function App() {
 		const headers = {
 			'Authorization': `Bearer ${token}`
 		};
-		if(token && !user.isLogged){
+
+		if(token && !user.logged){
 			fetch('http://localhost:9001/verify-token', {headers})
 				.then(res => res.json())
 				.then(data => {
-					
 					console.log(data);
-					dispatch(addUser(data))
+					dispatch(addUser(data.user))
 				})
 				.catch(err => console.log(err))
 		}
