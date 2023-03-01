@@ -4,16 +4,13 @@ import jwt from 'jsonwebtoken';
 
 const userSchema = mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        unique: true
     },
     password:{
         type: String
     },
     isAdmin: {
-        type: Boolean, 
-        default: false
-    },
-    isLogged: {
         type: Boolean, 
         default: false
     }

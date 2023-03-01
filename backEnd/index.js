@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://jordanostin:123@clusterapp.7ev62mm.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://jordanostin:123@clusterapp.7ev62mm.mongodb.net/the?retryWrites=true&w=majority');
 
 
 mongoose.connection.on("error", () => {

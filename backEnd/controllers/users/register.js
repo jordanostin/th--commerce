@@ -4,27 +4,24 @@ export const register = (req, res) => {
 
     const { email, password} = req.body;
     
-    userSchema.findOne({email: email}, (err, userExist) => {
-
-        if(err) throw err;
-
-        if(userExist){
-            res.status(400).json({ message: 'Cet email existe déjà.' });
-        }else{
-            const newUser = new userSchema({
-                email,
-                password
-            })
-            const token = newUser.createJWT();
-            newUser.save()
-            .then(() => {
-                res.status(201).json({newUser, token})
-            })
-            .catch((err) => console.log(err))
-
-            
-        }
+    
+    const user = new userSchema({
+        email,
+        password
     })
-    console.log("User created: ", userSchema);
+    const token = user.createJWT();
+    user.save()
+    .then(() => {
+        res.status(201).json({
+            user:{
+                email: user.email,
+                id: user._id
+            },
+            token
+        })
+    })
+    .catch((err) => {
+        return res.status(400).json({message : 'une erreur est survenue'})
+    })
         
 };

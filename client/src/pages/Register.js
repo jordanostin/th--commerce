@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { addUser } from "../store/slices/user/userSlice";
@@ -14,25 +13,30 @@ export const Register = () =>{
 
         const newUser = new FormData(e.target); 
 
-        axios.post('http://localhost:9001/register', {
-            email: newUser.get('email'), 
-            password: newUser.get('password') 
+        fetch('http://localhost:9001/register', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: newUser.get('email'),
+                password: newUser.get('password')
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then((res) => {
-            console.log(res.data);
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            const email = data.user.email
+            const password = data.user.password
+            const isAdmin = data.user.isAdmin
+            const jwt = data.jwt
 
-            const email = res.data.newUser.email
-            const password = res.data.newUser.password
-            const isAdmin = res.data.newUser.isAdmin
-            const jwt = res.data.jwt
-            
-            localStorage.setItem('jwt', res.data.token);
+            localStorage.setItem('jwt', data.token);
 
             dispatch(addUser({email,password,isAdmin,jwt}))
+
         })
-        .catch((error) => {
-            console.error(error); 
-        });
+        .catch((err) => console.log(err));
 
         navigate('/')
         

@@ -1,24 +1,23 @@
 import jwt from 'jsonwebtoken';
-import User from '../../models/userSchema';
+import userSchema from '../../models/userSchema.js';
 
 export const verifyToken  = async (req, res) => {
-    res.send('ok');
 
     const header = req.headers.authorization;
     const token = header && header.split(' ')[1];
 
     if(!token){
-        return res.status(401).send('nope')
+        return res.status(401).json({mesage : 'no token provided'})
     }
 
     jwt.verify(token, 'key_secret', async(err, decoded) => {
-
+        console.log(decoded);
         if(err){
-            res.status(403).send('Unauthorized');
+            res.status(403).json({message : 'Unauthorized'});
             return
         }
 
-        const user = await User.findOne({_id: decoded.id})
+        const user = await userSchema.findOne({_id: decoded._id})
         res.status(200).json({
             user:{
                 email: user.email,

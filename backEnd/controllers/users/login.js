@@ -7,36 +7,29 @@ export const login = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     
-    userSchema.findOne({ email: email }, (err, user) => {
-        
-        if (err) {
-          console.log(err);
-          return res.send('erreur 1');
-        }
-    
-        if (!user) {
-          return res.send('identifiant invalide 1');
-        }
-    
-        bcrypt.compare(password, user.password, (err, match) => {
-            if (err) {
-                console.log(err);
-                return res.send('erreur 2');
-            }
-            
-            if (!match) {
-                return res.send('identifiant invalide 2');
-            }else{
-                const token = jwt.sign({ email: user.email }, 'secret');
-                user = {
-                    email: email,
-                    isAdmin: email === 'milo@gmail.com',
-                    token: token
+    userSchema.findOne({ email: email })
+        .then(user => {
+            bcrypt.compare(password, user.password, (err, match) => {
+                if (err) {
+                    console.log(err);
+                    return res.send('erreur 2');
                 }
-                res.status(201).json({user, token})
-            } 
-            
-        });
-    });
+                
+                if (!match) {
+                    return res.send('identifiant invalide 2');
+                }else{
+                    const token = jwt.sign({ email: user.email, _id: user._id }, 'key_secret');
+                    user = {
+                        email: email,
+                        isAdmin: email === 'milo@gmail.com',
+                        id: user._id
+                    }
+                    res.status(201).json({user, token})
+                } 
+                
+            })
+        })
+        .catch((err) => res.send(err))
+   
 };
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import { addUser } from "../store/slices/user/userSlice";
@@ -15,28 +14,32 @@ export const Login = () =>{
 
         const user = new FormData(e.target); 
 
-        axios.post('http://localhost:9001/login', {
-            email: user.get('email'), 
-            password: user.get('password') 
+        fetch('http://localhost:9001/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: user.get('email'),
+                password: user.get('password')
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-        .then((res) => {
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            const email = data.user.email
+            const password = data.user.password
+            const isAdmin = data.user.isAdmin
+            const jwt = data.jwt
 
-            console.log(res.data)
+            localStorage.setItem('jwt', data.token);
 
-            const email = res.data.user.email
-            const isAdmin = res.data.user.isAdmin
-            const jwt = res.data.user.token
+            dispatch(addUser({email,password,isAdmin,jwt}))
 
-            localStorage.setItem('jwt', jwt);
-
-            dispatch(addUser({email, isAdmin, jwt}));
-
-            navigate('/user');
-            
         })
-        .catch((error) => {
-            console.error(error); 
-        });
+        .catch((err) => console.log(err));
+
+        navigate('/user');
     };
 
     return(
