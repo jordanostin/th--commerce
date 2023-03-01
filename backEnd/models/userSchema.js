@@ -10,7 +10,12 @@ const userSchema = mongoose.Schema({
         type: String
     },
     isAdmin: {
-        type: {type: Boolean, default: false}
+        type: Boolean, 
+        default: false
+    },
+    isLogged: {
+        type: Boolean, 
+        default: false
     }
 },{
     timestamp: true
@@ -30,6 +35,19 @@ userSchema.methods.createJWT = function () {
     }, 'key_secret', {expiresIn: '24h'})
 }
 
-userSchema.
+userSchema.statics.decodeJWT = async function (token) {
+    try {
+    const decoded = jwt.verify(token, 'key_secret');
+    const user = await this.findOne({ email: decoded.email });
+
+    if (!user) {
+    console.log('User not found');
+    }
+    return user;
+    } catch (error) {
+            console.log('JWT decoding error');
+    }
+};
+
 
 export default mongoose.model('User', userSchema);

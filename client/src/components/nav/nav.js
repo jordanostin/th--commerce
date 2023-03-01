@@ -1,6 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { Register } from "../../pages/Register";
-import { Login } from '../../pages/Login'
+import { Link } from "react-router-dom";
 
 export const Nav = () => {
 
