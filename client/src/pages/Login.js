@@ -26,13 +26,14 @@ export const Login = () =>{
         })
         .then((res) => res.json())
         .then((data) => {
+
             console.log(data)
             const email = data.user.email
             const password = data.user.password
             const isAdmin = data.user.isAdmin
             const jwt = data.jwt
 
-            localStorage.setItem('jwt', data.token);
+            localStorage.setItem('token', data.token);
 
             dispatch(addUser({email,password,isAdmin,jwt}))
 
