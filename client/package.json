@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "router-dom": "^2.2.10",
+    "sass": "^1.58.3",
     "stream": "^0.0.2",
     "web-vitals": "^2.1.4"
   },

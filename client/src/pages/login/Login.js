@@ -1,23 +1,24 @@
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
-import { addUser } from "../store/slices/user/userSlice";
+import { addUser } from "../../store/slices/user/userSlice";
 
-export const Register = () =>{
+
+
+export const Login = () =>{
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
 
-        const newUser = new FormData(e.target); 
+        const user = new FormData(e.target); 
 
-        fetch('http://localhost:9001/register', {
+        fetch('http://localhost:9001/login', {
             method: 'POST',
             body: JSON.stringify({
-                email: newUser.get('email'),
-                password: newUser.get('password')
+                email: user.get('email'),
+                password: user.get('password')
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -25,26 +26,26 @@ export const Register = () =>{
         })
         .then((res) => res.json())
         .then((data) => {
+
             console.log(data)
             const email = data.user.email
             const password = data.user.password
             const isAdmin = data.user.isAdmin
             const jwt = data.jwt
 
-            localStorage.setItem('jwt', data.token);
+            localStorage.setItem('token', data.token);
 
             dispatch(addUser({email,password,isAdmin,jwt}))
 
         })
         .catch((err) => console.log(err));
 
-        navigate('/')
-        
-    }
+        navigate('/');
+    };
 
     return(
         <>
-            <h1>Register</h1>
+            <h1>Login</h1>
 
             <form onSubmit={handleSubmit}>
 
@@ -56,6 +57,7 @@ export const Register = () =>{
 
                 <input type='submit' value='ok' />
             </form>
+
         </>
     );
 }

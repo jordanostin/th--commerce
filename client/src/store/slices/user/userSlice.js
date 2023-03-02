@@ -5,7 +5,7 @@ export const userSlice = createSlice({
     initialState: {
         email:'',
         token:'',
-        isAdmin: false
+        isAdmin: false,
     },
     reducers: {
         addUser: (state, action) => {
@@ -13,7 +13,8 @@ export const userSlice = createSlice({
                 ...state,
                 email: action.payload.email,
                 token: action.payload.token,
-                isAdmin: action.payload.isAdmin
+                isAdmin: action.payload.isAdmin,
+                isLogged: true
             }
         }
     },

@@ -1,16 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Nav } from './components/nav/nav';
-import { Register } from "./pages/Register";
-import { Login } from "./pages/Login";
-import { User } from './pages/User';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUser } from "./store/slices/user/userSlice";
+import { Home } from "./pages/home/Home";
 
 function App() {
 
 	const user = useSelector(state => state);
 	const dispatch = useDispatch();
+	
+	useEffect(() => {
+		console.log(user)
+	},[user])
 
 	useEffect(() =>{
 
@@ -19,7 +19,9 @@ function App() {
 			'Authorization': `Bearer ${token}`
 		};
 
-		if(token && !user.logged){
+		console.log(user.user.isLogged)
+
+		if(token){
 			fetch('http://localhost:9001/verify-token', {headers})
 				.then(res => res.json())
 				.then(data => {
@@ -33,14 +35,7 @@ function App() {
 	
 	return(
 			<>
-				<BrowserRouter>
-					<Routes>
-						<Route path='/' element={<Nav />}/>
-						<Route path='/login' element={<Login/>}/>
-						<Route path='/register' element={<Register/>}/>
-						<Route path='/user' element={<User />}/>
-					</Routes>
-				</BrowserRouter>
+				<Home />
 			</>
 	);
 }
