@@ -8,15 +8,13 @@ function App() {
 	const user = useSelector(state => state);
 	const dispatch = useDispatch();
 	
-	useEffect(() => {
-		console.log(user)
-	},[user])
 
 	useEffect(() =>{
 
 		const token = localStorage.getItem('token');
 		const headers = {
-			'Authorization': `Bearer ${token}`
+			'Authorization': `Bearer ${token}`,
+			'Content-type': 'application/json'
 		};
 
 		console.log(user.user.isLogged)
