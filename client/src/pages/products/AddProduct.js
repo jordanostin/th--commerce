@@ -36,8 +36,6 @@ export const AddProduct = () => {
             const price = data.product.price
             const quantity = data.product.quantity
 
-            console.log(name, description, img, price, quantity)
-
             dispatch(addProduct({name, description, img, price, quantity}))
 
         })

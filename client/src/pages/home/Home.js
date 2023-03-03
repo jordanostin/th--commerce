@@ -3,18 +3,12 @@ import { Nav } from '../../components/nav/nav';
 import { Register } from "../register/Register";
 import { Logout } from "../Logout";
 import { Login } from "../login/Login";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Header } from "../../components/header/header";
 import { AddProduct } from "../products/AddProduct";
+import { Admin } from "../admin/Admin";
+import { Product } from "../../components/product/products";
+import { Update } from "../update.js";
 
 export const Home = () => {
-
-    const user = useSelector(state => state.user);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
 
     return(
         <>   
@@ -25,12 +19,13 @@ export const Home = () => {
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/logout' element={<Logout/>}/>
                     <Route path='/add-product' element={<AddProduct/>}/>
+                    <Route path='/admin' element={<Admin/>}/>
+                    <Route path='/update/:productId' element={<Update/>} />
+
                 </Routes>
             </BrowserRouter>
 
             
         </>
     );
-
-    
 }

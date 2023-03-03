@@ -17,13 +17,10 @@ function App() {
 			'Content-type': 'application/json'
 		};
 
-		console.log(user.user.isLogged)
-
 		if(token){
 			fetch('http://localhost:9001/verify-token', {headers})
 				.then(res => res.json())
 				.then(data => {
-					console.log(data);
 					dispatch(addUser(data.user))
 				})
 				.catch(err => console.log(err))

@@ -20,7 +20,8 @@ export const addProduct = (req, res) => {
                 description,
                 image,
                 quantity,
-                price
+                price,
+                id: product._id
             }
         })
     })
