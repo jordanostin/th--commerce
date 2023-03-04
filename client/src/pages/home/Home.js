@@ -7,6 +7,7 @@ import { AddProduct } from "../products/AddProduct";
 import { Admin } from "../admin/Admin";
 import { Product } from "../../components/product/products";
 import { Update } from "../update.js";
+import { Delete } from "../delete.js";
 
 export const Home = () => {
 
@@ -21,6 +22,7 @@ export const Home = () => {
                     <Route path='/add-product' element={<AddProduct/>}/>
                     <Route path='/admin' element={<Admin/>}/>
                     <Route path='/update/:productId' element={<Update/>} />
+                    <Route path='/delete' element={<Delete/>} />                   
 
                 </Routes>
             </BrowserRouter>

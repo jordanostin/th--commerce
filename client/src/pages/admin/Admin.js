@@ -34,8 +34,8 @@ export const Admin = () => {
                         <tr key={i}>
                             <td>{product._id}</td>
                             <td>{product.name}</td>
-                            <td><Link to={`/update/${product.id}`}>Update</Link></td>
-                            <td><Link to='/'>Delete</Link></td>
+                            <td><Link to={`/update/${product._id}`}>Update</Link></td>
+                            <td><Link to={`/delete/${product._id}`}>Delete</Link></td>
                         </tr>
                     ))}
                 </tbody>
