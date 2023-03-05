@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export const Delete = () => {
+export const DeleteUsers = () => {
 
-    const {productId} = useParams;
-    const navigate = useNavigate;
+    const {userId} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        
-        fetch(`http://localhost:9001/delete/product/${productId}`, {
-            methode: 'DELETE'
-        })
+
+        fetch(`http://localhost:9001/admin/delete/user/${userId}`)
             .then(data => console.log(data))
             .catch(err => console.log(err))
 

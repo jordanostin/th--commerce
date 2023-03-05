@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../store/slices/product/productSlice";
+import { addProduct } from "../../store/slices/product/productSlice";
 
 export const Update = () => {
 

@@ -5,9 +5,9 @@ import { Logout } from "../Logout";
 import { Login } from "../login/Login";
 import { AddProduct } from "../products/AddProduct";
 import { Admin } from "../admin/Admin";
-import { Product } from "../../components/product/products";
-import { Update } from "../update.js";
-import { Delete } from "../delete.js";
+import { Update } from "../products/updateProduct.js";
+import { DeleteProduct } from "../products/deleteProduct.js";
+import { DeleteUsers } from "../DeleteUsers";
 
 export const Home = () => {
 
@@ -22,7 +22,8 @@ export const Home = () => {
                     <Route path='/add-product' element={<AddProduct/>}/>
                     <Route path='/admin' element={<Admin/>}/>
                     <Route path='/update/:productId' element={<Update/>} />
-                    <Route path='/delete' element={<Delete/>} />                   
+                    <Route path='/delete/product/:productId' element={<DeleteProduct/>} />                   
+                    <Route path='/delete/user/:userId' element={<DeleteUsers/>} />                   
 
                 </Routes>
             </BrowserRouter>

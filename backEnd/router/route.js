@@ -17,7 +17,7 @@ router.post("/add-product", addProduct);
 
 router.get("/admin", admin);
 router.get("/verify-token", verifyToken);
-router.get("/delete/:type/:id", deleteType);
+router.get("/admin/delete/:type/:id", deleteType);
 
 router.put("/users/:id", updateUser);
 router.put("/admin/products/:id", updateProduct);
