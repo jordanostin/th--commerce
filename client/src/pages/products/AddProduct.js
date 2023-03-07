@@ -13,18 +13,21 @@ export const AddProduct = () => {
 
         const newProduct = new FormData(e.target); 
 
-        fetch('http://localhost:9001/add-product', {
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:9001/admin/add-product', {
             method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 name: newProduct.get('name'),
                 description: newProduct.get('desc'),
                 img: newProduct.get('img'),
                 price: newProduct.get('price'),
                 quantity: newProduct.get('quantity')
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            })
         })
         .then((res) => res.json())
         .then((data) => {

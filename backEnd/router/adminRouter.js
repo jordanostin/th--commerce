@@ -8,19 +8,18 @@ import { updateUser } from "../controllers/users/updateUser.js";
 import { updateProduct } from "../controllers/product/updateProduct.js";
 import { admin } from "../controllers/users/admin.js";
 
-
 const router = express.Router();
 
 router.post("/login", login);
 router.post("/register", register);
 router.post("/add-product", addProduct);
 
-router.get("/admin", admin);
+router.get("/back-office", admin);
 router.get("/verify-token", verifyToken);
-router.get("/admin/delete/:type/:id", deleteType);
+router.get("/delete/:type/:id", deleteType);
 
 router.put("/users/:id", updateUser);
-router.put("/admin/products/:id", updateProduct);
+router.put("/products/:id", updateProduct);
 
 
 

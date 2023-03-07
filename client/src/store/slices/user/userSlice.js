@@ -11,6 +11,7 @@ export const userSlice = createSlice({
         addUser: (state, action) => {
             return{
                 ...state,
+                id: action.payload._id,
                 email: action.payload.email,
                 token: action.payload.token,
                 isAdmin: action.payload.isAdmin,

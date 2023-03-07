@@ -7,8 +7,7 @@ export const admin = async (req,res) => {
         const products = await productSchema.find({});
         const users = await userSchema.find({})
         
-        res.send({ products, users });
-        console.log(products, users);
+        res.status(200).json({products, users});
 
         }catch(err){
             console.log(err);

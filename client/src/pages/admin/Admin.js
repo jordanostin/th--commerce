@@ -7,7 +7,14 @@ export const Admin = () => {
     const [users, sestUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:9001/admin')
+
+        const token = localStorage.getItem('token');
+		const headers = {
+			'Authorization': `Bearer ${token}`,
+			'Content-type': 'application/json'
+		};
+
+        fetch('http://localhost:9001/admin/back-office', {headers})
             .then(res => res.json())
             .then(data => {
                 setProducts(data.products);

@@ -8,8 +8,6 @@ export const updateUser = (req, res) => {
     const update = {
       password: req.body.password,
     };
-    
-    console.log(update);
 
     if(req.body.password){
 

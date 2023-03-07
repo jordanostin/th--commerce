@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import express from "express";
-import router from './router/route.js';
+import adminRouter from './router/adminRouter.js';
+import authRouter from './router/authRouter.js';
+import {auth} from "./controllers/middleware/auth.js"
 import cors from 'cors';
 
 
@@ -21,7 +23,8 @@ mongoose.connection.on("error", () => {
 
 mongoose.connection.on("open", () => {
     console.log("Connexion à la base de donénes établie");
-    app.use('/', router);
+    app.use('/admin',[auth.verifyToken, auth.isAdmin], adminRouter);
+    app.use('/', authRouter);
 })
 
 

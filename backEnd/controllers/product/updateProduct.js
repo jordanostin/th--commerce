@@ -12,16 +12,14 @@ export const updateProduct = (req, res) => {
         quantity: req.body.price
     };
 
-    console.log(update)
-
   
     Product.updateOne({ _id: productId }, update)
         .then(() => {
-        res.status(200).send("mise à jour du mot de passe ok");
+        res.status(200).json({update})
         })
         .catch((err) => {
         console.error(err);
-        res.status(500).send("erreur de la mise à jour");
+        res.status(500).json({message: 'Erreur de la mise à jour'});
         });
     
 }

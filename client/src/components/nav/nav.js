@@ -20,6 +20,7 @@ export const Nav = () => {
             ):(
                 <>
                     <Link to='/logout'>Logout</Link>
+                    <Link to={`/option/${user._id}`}>Option</Link>
                     {user.isAdmin && (
                         <>
                             <Link to='/add-product'>Add product</Link>

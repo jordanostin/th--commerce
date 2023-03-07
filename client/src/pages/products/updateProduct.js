@@ -11,6 +11,8 @@ export const Update = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
       
+        const token = localStorage.getItem('token');
+
         const formData = new FormData(e.target);
         const product = {};
       
@@ -33,7 +35,9 @@ export const Update = () => {
         fetch(`http://localhost:9001/admin/products/${productId}`, {
           method: 'PUT',
           headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
+
           },
           body: JSON.stringify(product)
         })
